@@ -2,13 +2,15 @@
 
 import './App.css'
 import Nav from './components/nav'
+import Journal from './components/journal'
 
 function App() {
   return (
     <>
     <section id='journal'>
       <Nav />
-      <h1>Journal</h1>
+      <Journal />
+      
       
     </section>
     </>
