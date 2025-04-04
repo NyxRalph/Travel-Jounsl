@@ -2,7 +2,7 @@ export default[
     {
         id:1,
         img:{
-            src:require('./images/1.png'),
+            src:'Mount Fuji.jpg',
             alt:"Mount Fuji"
         },
         title:"Mount Fuji",
@@ -14,7 +14,7 @@ export default[
     {
         id:2,
         img:{
-            src:require('./images/1.png'),
+            src:'Niagara Falls.jpg',
             alt:"Niagara Falls"
         },
         title:"Niagara Falls",
@@ -26,7 +26,7 @@ export default[
     {
         id:3,
         img:{
-            src:require('./images/1.png'),
+            src:'Manhattan Bridge.jpg',
             alt:"Manhattan Bridge"
         },
         title:"Manhattan Bridge",
