@@ -7,7 +7,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: grey;
-  max-width: 1400px;
+  max-width: 1440px;
   width: 100%;
   height: 101vh;
   display: flex;
@@ -15,11 +15,11 @@ body {
   justify-content: center;
 }
 #root {
-  width: 49%;
+  width: 100%;
   height: 92vh;
 }
 #journal {
-  width: 100%;
+  width: 45%;
   height: 92vh;
   margin: 0;
   padding: 0;
@@ -58,10 +58,27 @@ body {
   padding: 30px;
   display: flex;
   align-items: center;
+  transition: all 300ms ease;
+
   /* justify-content: space-between; */
+}
+.log:hover {
+  scale: 1.015;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: all 300ms ease;
+
+}
+.log:active {
+  scale: 0.99;
+  transition: all 300ms ease;
+
 }
 .fuji__img__wrapper {
   width: 150px;
+  transition: all 300ms ease;
+}
+.fuji__img__wrapper:hover {
+ 
 }
 .fuji__img {
   width: 100%;
@@ -100,4 +117,19 @@ body {
   font-size: 16px;
   line-height: 1.9;
   font-weight: 300;
+}
+#landing{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+#entrylog{
+  width: 45%;
+  height: 92vh;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  border-radius: 30px;
+  padding: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }

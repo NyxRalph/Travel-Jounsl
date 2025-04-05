@@ -1,7 +1,7 @@
 import marker from "../assets/Map pin.svg";
 
 function Journal(props) {
-  console.log(props.data.img.src);
+
   return (
     <div className="log">
       <div className="fuji__img__wrapper">
