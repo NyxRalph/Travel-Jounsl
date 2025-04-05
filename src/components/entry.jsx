@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Nav from "./nav";
+import previous from "/public/Left.svg"
+import next from "/public/Right.svg"
 
 function EntryLog() {
   const images = [
@@ -26,7 +28,7 @@ function EntryLog() {
       <div className="entry">
         <div className="entry__img__slider__wrapper">
           <button onClick={handlePrev} className="slider__button prev">
-           Img
+           <img className="arrows left_arrow" src={previous} alt="Previous" />
           </button>
           <img
             className="slide"
@@ -34,7 +36,7 @@ function EntryLog() {
             alt={images[currentIndex].alt}
           />
           <button onClick={handleNext} className="slider__button next">
-            
+          <img className="arrows right_arrow" src={next} alt="Next" />
             
           </button>
         </div>
