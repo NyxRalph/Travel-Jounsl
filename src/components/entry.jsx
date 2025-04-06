@@ -4,11 +4,7 @@ import previous from "/public/Left.svg"
 import next from "/public/Right.svg"
 
 function EntryLog() {
-  // const images = [
-  //   { src: "/assets/image1.jpg", alt: "Image 1" },
-  //   { src: "/assets/image2.jpg", alt: "Image 2" },
-  //   { src: "/assets/image3.jpg", alt: "Image 3" },
-  // ];
+
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
