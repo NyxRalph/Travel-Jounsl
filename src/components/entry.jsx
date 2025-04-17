@@ -26,11 +26,11 @@ function EntryLog() {
           <button onClick={handlePrev} className="slider__button prev">
            <img className="arrows left_arrow" src={previous} alt="Previous" />
           </button>
-          {/* <img
+          <img
             className="slide"
             src={images[currentIndex].src}
             alt={images[currentIndex].alt}
-          /> */}
+          />
           <button onClick={handleNext} className="slider__button next">
           <img className="arrows right_arrow" src={next} alt="Next" />
             
