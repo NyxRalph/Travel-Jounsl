@@ -36,11 +36,6 @@ function EntryLog() {
             src={images[currentIndex].src}
             alt={images[currentIndex].alt}
           /> */}
-          {/* <img
-            className="slide"
-            src={images[currentIndex].src}
-            alt={images[currentIndex].alt}
-          /> */}
           <button onClick={handleNext} className="slider__button next">
           <img className="arrows right_arrow" src={next} alt="Next" />
             
