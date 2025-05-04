@@ -133,10 +133,8 @@ body {
   padding: 6px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-.slider__button{
-  background-color: transparent;
-  border: none;
-}
+
+
 .slider__button:hover{
   scale: 1.1;
   z-index: 5;
