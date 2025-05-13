@@ -1,9 +1,8 @@
 import marker from "../assets/Map pin.svg";
 
 function Journal(props) {
-
   return (
-    <div className="log">
+    <div className="log" onClick={props.onClick} style={{ cursor: "pointer" }}>
       <div className="fuji__img__wrapper">
         <img
           className="fuji__img"
