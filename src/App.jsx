@@ -5,7 +5,6 @@ import data from "./assets/data.js";
 import EntryLog from "./components/entry.jsx";
 import React, { useState } from "react";
 import Auth from "./components/Auth.jsx";
-import Map from "./components/Map.jsx";
 
 function App() {
   const [selectedLogId, setSelectedLogId] = useState(null);
@@ -19,7 +18,6 @@ function App() {
           <Auth onAuthChange={setUser} />
         ) : (
           <>
-            <Map onSelect={setSelectedLogId} />
             <section id="journal">
               <Nav title=" My Travel Journal" />
               <section id="logs">

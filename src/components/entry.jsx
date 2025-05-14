@@ -80,24 +80,39 @@ function EntryLog({ log }) {
             <strong>Personal Experience:</strong>{" "}
             {log.experience?.text || "No experience recorded yet."}
           </p>
-          <div style={{ margin: "24px 0" }}>
-            {isLoaded && !loadError && (
-              <GoogleMap
-                mapContainerStyle={{
-                  width: "100%",
-                  height: "200px",
-                  borderRadius: "14px",
-                }}
-                zoom={10}
-                center={{ lat: log.latitude, lng: log.longitude }}
-              >
-                <Marker
-                  position={{ lat: log.latitude, lng: log.longitude }}
-                  title={log.title}
-                />
-              </GoogleMap>
-            )}
-          </div>
+        </div>
+        <div style={{ margin: "40px 0 0 0" }}>
+          {isLoaded && !loadError && (
+            <GoogleMap
+              mapContainerStyle={{
+                width: "100%",
+                height: "220px",
+                borderRadius: "16px",
+                border: "1.5px solid #ececec",
+                boxShadow: "0 2px 12px rgba(50,50,93,0.10)",
+                marginTop: "10px",
+              }}
+              zoom={10}
+              center={{ lat: log.latitude, lng: log.longitude }}
+              options={{
+                disableDefaultUI: true,
+                zoomControl: true,
+                gestureHandling: "greedy",
+                styles: [
+                  {
+                    featureType: "poi",
+                    elementType: "labels",
+                    stylers: [{ visibility: "off" }],
+                  },
+                ],
+              }}
+            >
+              <Marker
+                position={{ lat: log.latitude, lng: log.longitude }}
+                title={log.title}
+              />
+            </GoogleMap>
+          )}
         </div>
       </div>
     </section>
