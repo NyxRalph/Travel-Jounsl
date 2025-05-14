@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
-// TODO: Replace the following with your app's Firebase project configuration
+
 const firebaseConfig = {
   apiKey: "AIzaSyBQCZrA9xYF6wNVQyCoxFpaN5IC0MFrs_8",
   authDomain: "travel-journal-319ba.firebaseapp.com",

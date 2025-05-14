@@ -2,9 +2,15 @@ import React, { useState, useEffect } from "react";
 import Nav from "./nav";
 import previous from "/public/Left.svg";
 import next from "/public/Right.svg";
+import Map from "./Map.jsx";
+import data from "../assets/data";
+import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 
 function EntryLog({ log }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: "AIzaSyAl9frXkZqpDMHFYJG5M81f6Gk2cqPFb0E",
+  });
 
   useEffect(() => {
     setCurrentIndex(0);
@@ -16,6 +22,9 @@ function EntryLog({ log }) {
         <Nav title="Travel Log" />
         <div className="entry__placeholder">
           Select a travel log to see details and experiences.
+        </div>
+        <div style={{ margin: "24px 0" }}>
+          <Map onSelect={() => {}} />
         </div>
       </section>
     );
@@ -71,6 +80,24 @@ function EntryLog({ log }) {
             <strong>Personal Experience:</strong>{" "}
             {log.experience?.text || "No experience recorded yet."}
           </p>
+          <div style={{ margin: "24px 0" }}>
+            {isLoaded && !loadError && (
+              <GoogleMap
+                mapContainerStyle={{
+                  width: "100%",
+                  height: "200px",
+                  borderRadius: "14px",
+                }}
+                zoom={10}
+                center={{ lat: log.latitude, lng: log.longitude }}
+              >
+                <Marker
+                  position={{ lat: log.latitude, lng: log.longitude }}
+                  title={log.title}
+                />
+              </GoogleMap>
+            )}
+          </div>
         </div>
       </div>
     </section>
