@@ -490,32 +490,59 @@ body {
 }
 
 @media (max-width: 900px) {
+  #landing {
+    flex-direction: column !important;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 18px;
+  }
   #journal,
   #entrylog {
     width: 100% !important;
     min-width: 0;
+    border-radius: 18px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 12px rgba(50, 50, 93, 0.1);
   }
   .main-content-wrapper {
     margin-top: 60px;
+    padding: 0 2vw;
   }
   .log {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
+    padding: 16px 6px;
+    margin: 0 2px;
   }
   .fuji__img__wrapper {
     width: 100%;
     min-width: 0;
     height: 180px;
   }
+  .entry {
+    padding: 10px 2vw 18px 2vw;
+    margin: 0;
+    border-radius: 16px;
+    max-height: 70vh;
+    height: auto;
+  }
   .entry__img__slider__wrapper {
     width: 100%;
     min-width: 0;
     max-width: 100%;
     height: 180px;
+    border-radius: 14px;
   }
   .slide {
     height: 120px;
+    border-radius: 10px;
+  }
+  .modal-card {
+    min-width: 0;
+    max-width: 98vw;
+    padding: 18px 6vw 18px 6vw;
+    border-radius: 14px;
   }
 }
 
@@ -605,13 +632,76 @@ body {
   background: #b24646;
   color: #fff;
   box-shadow: 0 2px 8px rgba(178, 70, 70, 0.07);
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.1s;
+  outline: none;
+  margin: 0;
+}
+.modal-card button:active {
+  transform: scale(0.97);
+  background: #a03d3d;
+}
+.modal-card button:hover {
+  background: #a03d3d;
+  color: #fff;
 }
 .modal-card button[type="button"] {
   background: #eee;
   color: #b24646;
 }
-.modal-card button:hover {
+
+button {
+  padding: 10px 22px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #b24646;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(178, 70, 70, 0.07);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.1s;
+  outline: none;
+  margin: 0;
+}
+button:active {
+  transform: scale(0.97);
+  background: #a03d3d;
+}
+button:hover {
   background: #a03d3d;
   color: #fff;
+}
+input,
+textarea {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1.5px solid #e0e0e0;
+  font-size: 1.05rem;
+  font-family: "Inter", "Avenir", Arial, sans-serif;
+  margin-bottom: 0;
+  background: #fafbfc;
+  transition: border 0.2s;
+  outline: none;
+}
+input:focus,
+textarea:focus {
+  border: 1.5px solid #b24646;
+  outline: none;
+}
+
+/* Subtle hover for all clickable elements */
+button,
+.log,
+.slider__button,
+.auth__google,
+.nav__avatar {
+  transition: box-shadow 0.2s, background 0.2s, color 0.2s, transform 0.1s;
+}
+button:active,
+.log:active,
+.slider__button:active,
+.auth__google:active,
+.nav__avatar:active {
+  transform: scale(0.97);
+  box-shadow: 0 1px 4px rgba(50, 50, 93, 0.1);
 }
