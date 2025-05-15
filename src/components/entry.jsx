@@ -6,15 +6,48 @@ import Map from "./Map.jsx";
 import data from "../assets/data";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 
+const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dqkcwbxs9/upload";
+const CLOUDINARY_PRESET = "travel_journal";
+
 function EntryLog({ log }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [media, setMedia] = useState([]); // {url, type}
+  const [uploading, setUploading] = useState(false);
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyAl9frXkZqpDMHFYJG5M81f6Gk2cqPFb0E",
   });
 
   useEffect(() => {
     setCurrentIndex(0);
+    setMedia([]); // Reset media when log changes
   }, [log]);
+
+  const handleUpload = async (e) => {
+    const files = Array.from(e.target.files);
+    setUploading(true);
+    for (const file of files) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", CLOUDINARY_PRESET);
+      try {
+        const res = await fetch(CLOUDINARY_URL, {
+          method: "POST",
+          body: formData,
+        });
+        const data = await res.json();
+        if (data.secure_url) {
+          setMedia((prev) => [
+            ...prev,
+            { url: data.secure_url, type: file.type.split("/")[0] },
+          ]);
+        }
+      } catch (err) {
+        alert("Upload failed: " + err.message);
+      }
+    }
+    setUploading(false);
+    e.target.value = null;
+  };
 
   if (!log) {
     return (
@@ -80,6 +113,33 @@ function EntryLog({ log }) {
             <strong>Personal Experience:</strong>{" "}
             {log.experience?.text || "No experience recorded yet."}
           </p>
+          <div style={{ margin: "24px 0 12px 0" }}>
+            <label style={{ fontWeight: 600 }}>
+              Add Media (photo, video, audio):
+              <input
+                type="file"
+                accept="image/*,video/*,audio/*"
+                multiple
+                onChange={handleUpload}
+                style={{ display: "block", marginTop: 8 }}
+                disabled={uploading}
+              />
+            </label>
+            {uploading && (
+              <div style={{ color: "#b24646", marginTop: 8 }}>Uploading...</div>
+            )}
+            <div className="entry__media-gallery">
+              {media.map((m, i) =>
+                m.type === "image" ? (
+                  <img key={i} src={m.url} alt="uploaded" />
+                ) : m.type === "video" ? (
+                  <video key={i} src={m.url} controls />
+                ) : m.type === "audio" ? (
+                  <audio key={i} src={m.url} controls />
+                ) : null
+              )}
+            </div>
+          </div>
         </div>
         <div style={{ margin: "40px 0 0 0" }}>
           {isLoaded && !loadError && (
