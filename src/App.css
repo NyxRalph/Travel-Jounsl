@@ -200,38 +200,58 @@ body {
 }
 .entry {
   max-height: 80vh;
+  height: 80vh;
   overflow-y: auto;
-  padding: 32px 18px 32px 24px;
+  padding: 8px 8px 36px 8px;
   border-radius: 24px;
-  background: transparent;
-  box-shadow: none;
+  background: #fafbfc;
+  box-shadow: 0 2px 16px rgba(50, 50, 93, 0.07);
   scrollbar-width: thin;
   scrollbar-color: #e0e0e0 #fafbfc;
   transition: box-shadow 0.2s;
+  margin: 0 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 .entry__img__slider__wrapper {
+  flex: 0 0 54%;
+  min-height: 220px;
+  max-height: 60%;
   width: 100%;
-  height: 42vh;
-  background-color: grey;
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
-  margin: 7px 0px;
+  margin: 0;
+  background: #e3e6ee;
+  border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 2px 12px rgba(50, 50, 93, 0.08);
+  transition: box-shadow 0.2s, width 0.3s;
 }
 .slide {
-  max-width: 90%;
-  max-height: 90%;
-  width: auto;
-  height: 38vh;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.13);
   display: block;
   margin: 0 auto;
+  transition: box-shadow 0.2s, transform 0.2s, opacity 0.4s;
+  animation: slideInFade 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes slideInFade {
+  from {
+    opacity: 0;
+    transform: translateX(40px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
 }
 .entry__details {
   padding: 24px 32px 16px 32px;
@@ -259,19 +279,40 @@ body {
   font-size: 1.3rem;
   color: #888;
 }
+.slider__button.prev {
+  left: 0;
+}
+.slider__button.next {
+  right: 0;
+}
 .slider__button {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) scale(1);
   z-index: 2;
-  padding: 0 10px;
-  cursor: pointer;
+  padding: 0;
+  background: rgba(255, 255, 255, 0);
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: background 0.2s, opacity 0.2s, transform 0.2s;
+  box-shadow: none;
 }
-.slider__button.prev {
-  left: 10px;
+.slider__button:hover {
+  background: rgba(178, 70, 70, 0.12);
+  opacity: 1;
+  transform: translateY(-50%) scale(1.12);
 }
-.slider__button.next {
-  right: 10px;
+.arrows {
+  width: 28px;
+  height: 28px;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  transition: filter 0.2s;
 }
 
 /* --- Auth Component Styles (Fine-tuned) --- */
@@ -467,6 +508,15 @@ body {
     min-width: 0;
     height: 180px;
   }
+  .entry__img__slider__wrapper {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: 180px;
+  }
+  .slide {
+    height: 120px;
+  }
 }
 
 @keyframes logRise {
@@ -478,4 +528,90 @@ body {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(245, 247, 250, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: modalFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.modal-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(50, 50, 93, 0.18);
+  padding: 36px 28px 28px 28px;
+  min-width: 340px;
+  max-width: 420px;
+  width: 96vw;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  animation: modalCardPop 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes modalCardPop {
+  from {
+    transform: scale(0.96) translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+.modal-card input,
+.modal-card textarea {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1.5px solid #e0e0e0;
+  font-size: 1.05rem;
+  font-family: "Inter", "Avenir", Arial, sans-serif;
+  margin-bottom: 0;
+  background: #fafbfc;
+  transition: border 0.2s;
+}
+.modal-card input:focus,
+.modal-card textarea:focus {
+  border: 1.5px solid #b24646;
+  outline: none;
+}
+.modal-card label {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.modal-card button {
+  padding: 10px 22px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #b24646;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(178, 70, 70, 0.07);
+  transition: background 0.2s, color 0.2s;
+}
+.modal-card button[type="button"] {
+  background: #eee;
+  color: #b24646;
+}
+.modal-card button:hover {
+  background: #a03d3d;
+  color: #fff;
 }

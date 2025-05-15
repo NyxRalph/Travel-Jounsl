@@ -137,34 +137,8 @@ function NewEntryModal({ onClose, onAdd }) {
   };
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100vw",
-        height: "100vh",
-        background: "rgba(0,0,0,0.25)",
-        zIndex: 1000,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <form
-        onSubmit={handleSubmit}
-        style={{
-          background: "#fff",
-          borderRadius: 18,
-          padding: 32,
-          minWidth: 340,
-          maxWidth: 420,
-          boxShadow: "0 4px 32px rgba(50,50,93,0.18)",
-          display: "flex",
-          flexDirection: "column",
-          gap: 18,
-        }}
-      >
+    <div className="modal-overlay">
+      <form onSubmit={handleSubmit} className="modal-card">
         <h2 style={{ margin: 0, color: "#b24646" }}>New Journal Entry</h2>
         <input
           placeholder="Title"
