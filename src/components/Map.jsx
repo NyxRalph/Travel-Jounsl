@@ -1,6 +1,5 @@
 import React from "react";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
-import data from "../assets/data";
 
 const mapContainerStyle = {
   width: "100%",
@@ -15,7 +14,7 @@ const center = {
   lng: -98.5795,
 };
 
-function Map({ onSelect }) {
+function Map({ onSelect, entries = [] }) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyAl9frXkZqpDMHFYJG5M81f6Gk2cqPFb0E",
   });
@@ -25,7 +24,7 @@ function Map({ onSelect }) {
 
   return (
     <GoogleMap mapContainerStyle={mapContainerStyle} zoom={3} center={center}>
-      {data.map((entry) => (
+      {entries.map((entry) => (
         <Marker
           key={entry.id}
           position={{ lat: entry.latitude, lng: entry.longitude }}

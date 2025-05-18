@@ -9,7 +9,7 @@ import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dqkcwbxs9/upload";
 const CLOUDINARY_PRESET = "travel_journal";
 
-function EntryLog({ log }) {
+function EntryLog({ log, entries = [] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [media, setMedia] = useState([]); // {url, type}
   const [uploading, setUploading] = useState(false);
@@ -57,7 +57,7 @@ function EntryLog({ log }) {
           Select a travel log to see details and experiences.
         </div>
         <div style={{ margin: "24px 0" }}>
-          <Map onSelect={() => {}} />
+          <Map onSelect={() => {}} entries={entries} />
         </div>
       </section>
     );

@@ -1,21 +1,43 @@
 import "./App.css";
 import Nav from "./components/nav";
 import Journal from "./components/journal";
-import data from "./assets/data.js";
 import EntryLog from "./components/entry.jsx";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Auth from "./components/Auth.jsx";
+import { db } from "./firebase";
+import { collection, getDocs, addDoc, query, where } from "firebase/firestore";
 
 function App() {
   const [selectedLogId, setSelectedLogId] = useState(null);
   const [user, setUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [entries, setEntries] = useState(data);
+  const [entries, setEntries] = useState([]);
+
+  useEffect(() => {
+    if (!user) return setEntries([]);
+    const fetchEntries = async () => {
+      const q = query(
+        collection(db, "journalEntries"),
+        where("uid", "==", user.uid)
+      );
+      const querySnapshot = await getDocs(q);
+      setEntries(
+        querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+      );
+    };
+    fetchEntries();
+  }, [user]);
 
   const selectedLog = entries.find((d) => d.id === selectedLogId);
 
-  const handleAddEntry = (entry) => {
-    setEntries((prev) => [{ ...entry, id: Date.now() }, ...prev]);
+  const handleAddEntry = async (entry) => {
+    if (!user) return;
+    const docRef = await addDoc(collection(db, "journalEntries"), {
+      ...entry,
+      uid: user.uid,
+      createdAt: new Date(),
+    });
+    setEntries((prev) => [{ id: docRef.id, ...entry }, ...prev]);
     setShowModal(false);
   };
 
@@ -56,7 +78,7 @@ function App() {
                   ))}
                 </section>
               </section>
-              <EntryLog log={selectedLog} />
+              <EntryLog log={selectedLog} entries={entries} />
               {showModal && (
                 <NewEntryModal
                   onClose={() => setShowModal(false)}
