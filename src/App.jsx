@@ -5,7 +5,15 @@ import EntryLog from "./components/entry.jsx";
 import React, { useState, useEffect } from "react";
 import Auth from "./components/Auth.jsx";
 import { db } from "./firebase";
-import { collection, getDocs, addDoc, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  query,
+  where,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 
 function App() {
   const [selectedLogId, setSelectedLogId] = useState(null);
@@ -39,6 +47,13 @@ function App() {
     });
     setEntries((prev) => [{ id: docRef.id, ...entry }, ...prev]);
     setShowModal(false);
+  };
+
+  const handleDeleteEntry = async (entryId) => {
+    if (!user) return;
+    await deleteDoc(doc(db, "journalEntries", entryId));
+    setEntries((prev) => prev.filter((entry) => entry.id !== entryId));
+    setSelectedLogId(null);
   };
 
   return (
@@ -78,7 +93,12 @@ function App() {
                   ))}
                 </section>
               </section>
-              <EntryLog log={selectedLog} entries={entries} />
+              <EntryLog
+                log={selectedLog}
+                entries={entries}
+                user={user}
+                onDelete={handleDeleteEntry}
+              />
               {showModal && (
                 <NewEntryModal
                   onClose={() => setShowModal(false)}

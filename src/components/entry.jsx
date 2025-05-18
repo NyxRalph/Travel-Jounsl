@@ -9,7 +9,7 @@ import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dqkcwbxs9/upload";
 const CLOUDINARY_PRESET = "travel_journal";
 
-function EntryLog({ log, entries = [] }) {
+function EntryLog({ log, entries = [], user, onDelete }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [media, setMedia] = useState([]); // {url, type}
   const [uploading, setUploading] = useState(false);
@@ -113,6 +113,30 @@ function EntryLog({ log, entries = [] }) {
             <strong>Personal Experience:</strong>{" "}
             {log.experience?.text || "No experience recorded yet."}
           </p>
+          {/* Delete button for entry owner */}
+          {user && log.uid === user.uid && (
+            <button
+              style={{
+                background: "#e74c3c",
+                color: "#fff",
+                border: "none",
+                borderRadius: 8,
+                padding: "8px 18px",
+                fontWeight: 700,
+                margin: "12px 0",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                if (
+                  window.confirm("Are you sure you want to delete this entry?")
+                ) {
+                  onDelete(log.id);
+                }
+              }}
+            >
+              Delete Entry
+            </button>
+          )}
           <div style={{ margin: "24px 0 12px 0" }}>
             <label style={{ fontWeight: 600 }}>
               Add Media (photo, video, audio):
